@@ -1,0 +1,22 @@
+:root {
+    --bg-colour: rgb(20, 20, 20);
+    --todo-colour: rgb(25, 25, 25);
+    --blue-colour: rgb(50, 50, 160);
+    --text-colour: rgb(200, 200, 200);
+    --border-colour: rgb(50, 50, 50);
+    --dark-border-colour: rgb(30, 30, 30);
+}
+
+body {
+    background-color: var(--bg-colour);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+}
+
+* {
+    font-family: sans-serif;
+    color: var(--text-colour);
+}
