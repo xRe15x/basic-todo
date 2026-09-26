@@ -2,16 +2,19 @@
 import TodoItemButton from './TodoItemButton.vue';
 import TodoItemCheckmark from './TodoItemCheckmark.vue';
 
+const data = defineModel({
+    type: Object,
+    default: { text: "", checked: false }
+});
+
 </script>
 
 <template>
     <div class="todo-item">
-        <TodoItemCheckmark />
-        <span class="task-text">
-            <slot>Task item</slot>
-        </span>
+        <TodoItemCheckmark v-model="data.checked" />
+        <input type="text" id="task-text" v-model="data.text"></input>
 
-        <TodoItemButton>
+        <TodoItemButton @click="console.log('Clicked rename')">
             <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                 <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -30,7 +33,7 @@ import TodoItemCheckmark from './TodoItemCheckmark.vue';
             </svg>
         </TodoItemButton>
 
-        <TodoItemButton>
+        <TodoItemButton @click="console.log('Clicked delete')">
             <svg fill="currentColor" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" stroke="currentColor"
                 stroke-width="0.00032">
                 <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
@@ -57,7 +60,14 @@ import TodoItemCheckmark from './TodoItemCheckmark.vue';
     border-radius: 3px;
 }
 
-.task-text {
+#task-text {
     flex: 1;
+    background-color: transparent;
+    border: none;
+    font-size: 1rem;
+}
+
+#task-text:focus {
+    outline: none;
 }
 </style>

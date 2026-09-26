@@ -1,5 +1,9 @@
+<script setup>
+const checked = defineModel();
+</script>
+
 <template>
-    <input type="checkbox" class="checkmark">
+    <input type="checkbox" class="checkmark" v-model="checked">
 </template>
 
 <style scoped>

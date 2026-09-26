@@ -1,8 +1,12 @@
 <script setup>
-// I don't know if I should be using "setup" attribute
 import TodoCreate from './TodoCreate.vue';
 import TodoItem from './TodoItem.vue';
 
+import { reactive } from 'vue';
+
+const tasks = reactive([
+    { text: "Task", checked: false }
+]);
 </script>
 
 <template>
@@ -35,7 +39,10 @@ h1 {
 #todo-list {
     display: flex;
     flex-direction: column;
+    margin: 0;
     margin-top: 0.5rem;
     gap: 8px;
+    list-style: none;
+    padding: 0;
 }
 </style>
