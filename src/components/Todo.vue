@@ -9,10 +9,9 @@ import TodoItem from './TodoItem.vue';
     <div id="todo">
         <h1>To-do</h1>
         <TodoCreate />
-        <div id="todo-list">
-            <TodoItem />
-            <TodoItem />
-        </div>
+        <ul id="todo-list" v-for="(_, index) in tasks">
+            <TodoItem v-model="tasks[index]" />
+        </ul>
     </div>
 </template>
 

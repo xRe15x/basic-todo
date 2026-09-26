@@ -42,5 +42,15 @@
     font-weight: bold;
     font-size: 1rem;
     padding: 0 0.5rem;
+    cursor: pointer;
+    transition: background-colour 0.5s;
+}
+
+#item-submit:hover {
+    background-color: rgb(from var(--blue-colour) r g b / 0.8);
+}
+
+#item-submit:active {
+    background-color: rgb(from var(--blue-colour) r g b / 0.6);
 }
 </style>
