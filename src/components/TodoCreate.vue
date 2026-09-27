@@ -1,9 +1,21 @@
-<script setup></script>
+<script setup>
+import { ref } from 'vue';
+
+const emit = defineEmits(["createTask"]);
+let taskText = ref("");
+
+function onSubmit() {
+    if (taskText.value == "") return;
+    emit("createTask", taskText.value);
+    taskText.value = "";
+}
+
+</script>
 
 <template>
-    <form action="" id="create">
+    <form action="" id="create" @submit.prevent="onSubmit">
         <label for="item-name" id="item-name-label">Item name</label>
-        <input type="text" name="item-name" id="item-name" placeholder="New task">
+        <input type="text" name="item-name" id="item-name" placeholder="New task" v-model="taskText">
         <button type="submit" id="item-submit">Create</button>
     </form>
 </template>

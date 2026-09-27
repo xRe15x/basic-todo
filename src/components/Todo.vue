@@ -4,17 +4,26 @@ import TodoItem from './TodoItem.vue';
 
 import { reactive } from 'vue';
 
-const tasks = reactive([
-    { text: "Task", checked: false }
-]);
+const tasks = reactive([]);
+
+function createTask(text) {
+    tasks.push({ text: text, checked: false });
+}
+
+function deleteTask(id) {
+    const taskIndex = tasks.findIndex(v => v.id === id);
+    if (taskIndex !== -1) {
+        tasks.splice(taskIndex, 1);
+    }
+}
 </script>
 
 <template>
     <div id="todo">
         <h1>To-do</h1>
-        <TodoCreate />
+        <TodoCreate @createTask="createTask" />
         <ul id="todo-list" v-for="(_, index) in tasks">
-            <TodoItem v-model="tasks[index]" />
+            <TodoItem v-model="tasks[index]" @deleteTask="tasks.splice(index, 1)" />
         </ul>
     </div>
 </template>

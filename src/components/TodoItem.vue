@@ -2,19 +2,36 @@
 import TodoItemButton from './TodoItemButton.vue';
 import TodoItemCheckmark from './TodoItemCheckmark.vue';
 
-const data = defineModel({
+import { ref, useTemplateRef } from "vue";
+
+const model = defineModel({
     type: Object,
     default: { text: "", checked: false }
 });
+
+const emit = defineEmits(["deleteTask"])
+
+let editing = ref(false);
+const input = useTemplateRef("input");
+
+function edit() {
+    if (editing.value == false) {
+        editing.value = true;
+        input.value?.focus();
+    } else { // Already editing, stop editing
+        editing.value = false;
+    }
+}
 
 </script>
 
 <template>
     <div class="todo-item">
-        <TodoItemCheckmark v-model="data.checked" />
-        <input type="text" id="task-text" v-model="data.text"></input>
+        <TodoItemCheckmark v-model="model.checked" />
+        <input type="text" class="task-text" v-model="model.text" :readonly="!editing" ref="input"
+            @keydown.enter="edit"></input>
 
-        <TodoItemButton @click="console.log('Clicked rename')">
+        <TodoItemButton @click="edit">
             <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                 <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -33,7 +50,7 @@ const data = defineModel({
             </svg>
         </TodoItemButton>
 
-        <TodoItemButton @click="console.log('Clicked delete')">
+        <TodoItemButton @click="emit('deleteTask')">
             <svg fill="currentColor" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" stroke="currentColor"
                 stroke-width="0.00032">
                 <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
@@ -60,14 +77,14 @@ const data = defineModel({
     border-radius: 3px;
 }
 
-#task-text {
+.task-text {
     flex: 1;
     background-color: transparent;
     border: none;
     font-size: 1rem;
 }
 
-#task-text:focus {
+.task-text:focus {
     outline: none;
 }
 </style>
